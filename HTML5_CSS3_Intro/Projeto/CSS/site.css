@@ -1,0 +1,170 @@
+body{
+    font-family: "Crimson Text", serif;
+    background-color: #F2FFFC;
+    font-size: 120%;
+    margin: 0;
+}
+.titulo_principal{
+    font-size: 60px;
+    background-color: #851944;
+    text-align: center;
+    color: white;
+    padding: 25px;
+    margin: 0;
+    border-bottom: solid;
+    border-bottom-color: black;
+    border-bottom-width: 10px;
+    text-transform: uppercase;
+
+}
+
+main a{
+    color: #851944;
+}
+
+h1, h2, main a, nav a{
+    font-family: "Open Sans Condensed", sans-serif;
+}
+
+main{
+    float: left;
+    width: 80%;
+}
+
+h2{
+    clear: both;
+}
+
+nav h1{
+    padding: 25px;
+    color: #F2FFFC;
+}
+
+p{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+body{
+    line-height: 1.5;
+}
+
+.navegacao_site {
+    background-color: #3C1D3D;
+    color: #F2FFFC;
+    padding: 20px;
+    text-align: center;
+    float: right;
+    width: 20%;
+    box-sizing: border-box;
+    border-left: 10px;
+    border-bottom: 10px;
+    border-color: black;
+    border-style: solid;
+    position: relative;
+    top: 310px;
+
+}
+
+.navegacao_site nav a {
+    font-size: 20px;
+}
+
+.redes_sociais li{
+    display: inline-block;
+}
+
+nav{
+    font-size: 30px;
+}
+
+nav li{
+    display: block;
+}
+
+nav a{
+    color:  #F2FFFC;
+    text-decoration: none;
+    text-transform: lowercase;
+}
+
+.rodape_pagina{
+    background-color: black;
+    color: #F2FFFC;
+    padding: 5px;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+}
+
+.rodape_pagina p{
+    margin: 0px;
+}
+
+footer{
+    clear: both;
+
+}
+
+.div_principal{
+    width: 720px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    margin-left: 60px;
+    margin-right: auto;
+    float: left;
+    padding-bottom: 20px;
+
+}
+
+strong {
+    font-weight: bold;
+}
+
+em {
+    font-style: italic;
+}
+
+
+.redes_sociais a{
+    display: block;
+    width: 40px;
+    height: 40px;
+    color:transparent;
+    text-indent: 0px;
+}
+
+.github-icone{
+    background-image: url("../imagens/midias_sociais/github.png");
+
+}
+
+.linkedin-icone{
+    background-image: url("../imagens/midias_sociais/linkedin.png");
+
+}
+
+.twitter-icone{
+    background-image: url("../imagens/midias_sociais/twitter.png");
+
+}
+
+
+ .minha-imagem{
+     float: right;
+     box-sizing: border-box ;
+     /*width: 20%;*/
+     border-left: 10px;
+     border-color: black;
+     border-bottom: 10px;
+     border-style: solid;
+     position: absolute; /* relative=posicao relativa ao elemento atual --- absolute=posicao a pagina do navegador*/
+     top: 0px;
+     right: 0px;
+ }
+
+ cite{
+     float: right;
+     font-style: italic;
+ }
