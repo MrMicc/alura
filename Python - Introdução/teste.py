@@ -13,6 +13,8 @@ if __name__ == '__main__':
         print('---------')
         print(each_perfil.get_dictionary())
         print('##################')
+        each_perfil.set_curtir()
+        print(each_perfil)
 
 
     data = Data(12,10,2015)
@@ -20,4 +22,7 @@ if __name__ == '__main__':
 
     pessoa = Pessoa("Ronaldo", 70, 1.70)
     print(pessoa.get_imc())
+
+
+
 
