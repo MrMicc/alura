@@ -1,8 +1,12 @@
-
+import sys
 class Perfil(object):
     """Classe padrão para perfis de usuário"""
 
     def __init__(self, nome, telefone, empresa):
+        if (len(nome) < 3 or nome is None) or (len(empresa) < 3 or empresa is None):
+            raise ArgumentoInvalidoError('o parametro nome e empresa tem que ter ao menos 3 caracteres!!!')
+        if(len(telefone) < 10):
+            raise ArgumentoInvalidoError('O parametro telefone tem que ter ao menos 3 caracteres!!!')
         self.nome = nome
         self.telefone = telefone
         self.empresa = empresa
@@ -20,12 +24,19 @@ class Perfil(object):
     #@staticmethod
     @classmethod
     def gerar_perfis(classe, nome_arquivo):
-        arquivo = open(nome_arquivo, 'r')
-        perfis =[]
-        for each_linha in arquivo:
-            split = each_linha.split(',')
-            perfis.append(classe(split[0], split[1], split[2]))
-        arquivo.close()
+
+        perfis = []
+        try:
+            with open(nome_arquivo, 'r') as arquivo:
+                for each_linha in arquivo:
+                    split = each_linha.split(',')
+                    if(len(split) < 3 or len(split) > 4):
+                        raise PerfilError('A linha "{}", está fora do padrão esperado!!!'.format(each_linha))
+                        raise V
+
+                    perfis.append(classe(split[0], split[1], split[2]))
+        except IOError as error:
+            print('IOError:: algum problema ocorreu no arquivo: {}'.format(nome_arquivo), file=sys.stderr)
         return perfis
 
     def __str__(self):
@@ -71,3 +82,18 @@ class Pessoa(object):
     def get_imc(self):
         self.__imc = self.peso/self.altura**2
         return 'IMC do {} é de: {}'.format(self.nome, self.__imc)
+
+
+class ArgumentoInvalidoError(Exception):
+    def __init__(self, msg):
+        self.msg = msg
+
+    def __srt__(self):
+        return repr(self.msg)
+
+class PerfilError(Exception):
+    def __init__(self, msg):
+        self.msg = msg
+
+    def __str__(self):
+        return repr(self.msg)
