@@ -16,7 +16,14 @@ Including another URLconf
 from django.conf.urls import url
 from perfis import views
 
+
+#^inicio da String
+#fim da da String$
+#logo ser quisermos uma url especifica ^STRING$
+#\d+ -> 1 ou mais digitos
+#grupos -> (?P<variavel>EXPREGULAR)
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^perfis/(?P<perfil_id>\d+)$',views.exibir_perfil, name='perfis') #url de um perfil especifico
 
 ]
