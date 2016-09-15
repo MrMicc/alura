@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista Perfis</title>
+</head>
+<body>
+    <h1>Perfis</h1>
+       <main>
+           {% for each_perfil in perfis %}
+                <p>nome: {{ each_perfil.nome }}</p>
+                <p>email: {{ each_perfil.email }}</p>
+                <p>telefone: {{ each_perfil.telefone }}</p>
+                <p>empresa: {{ each_perfil.nome_empresa }}</p>
+                <p>##############################</p>
+           {% empty %}
+                <p>Não foi encontrado nada</p>
+           {% endfor %}
+    </main>
+</body>
+</html>
