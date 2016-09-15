@@ -9,12 +9,15 @@ def index(request):
 
 
 def exibir_perfil(request, perfil_id):
-    perfil = Perfil()
-    if(perfil_id == '1'):
-        perfil = Perfil('Teste Nome', 'teste@teste.com', '2312313', 'Teste Ltda')
 
+    perfil = Perfil.objects.get(id=perfil_id)
 
     context = {
         'perfil':perfil
     }
     return render(request=request, template_name='perfil.html', context=context)
+
+
+def exibir_perfis(request):
+    context = {'perfis': Perfil.objects.all()}
+    return render(request=request, template_name='lista_perfis.html', context=context)

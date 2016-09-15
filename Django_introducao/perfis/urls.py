@@ -24,6 +24,7 @@ from perfis import views
 #grupos -> (?P<variavel>EXPREGULAR)
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^perfis/(?P<perfil_id>\d+)$',views.exibir_perfil, name='perfis') #url de um perfil especifico
+    url(r'^perfis/(?P<perfil_id>\d+)$',views.exibir_perfil, name='perfis'), #url de um perfil especifico
+    url(r'^perfis$',views.exibir_perfis, name='lista_perfis'),
 
 ]
