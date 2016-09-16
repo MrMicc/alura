@@ -5,7 +5,11 @@ from perfis.models import Perfil
 
 def index(request):
     """Delcaração de função de view"""
-    return render(request, 'index.html')
+    context = {
+        'perfis': Perfil.objects.all()
+    }
+
+    return render(request, 'index.html', context=context)
 
 
 def exibir_perfil(request, perfil_id):
