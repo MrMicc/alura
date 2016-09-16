@@ -5,12 +5,15 @@
     <title>ConnectedIn</title>
 </head>
 <body>
-    <h1>Detalhe Perfil</h1>
+    <h1>Detalhe Perfil: {{ perfil.nome }}</h1>
     <main>
-        <p>nome: {{ perfil.nome }}</p>
         <p>email: {{ perfil.email }}</p>
         <p>telefone: {{ perfil.telefone }}</p>
         <p>empresa: {{ perfil.nome_empresa }}</p>
+        <p>Convites Realizados: {{ perfil.convites_feitos.all.count }}</p>
+        <p>Convite Recebidos: {{ perfil.convites_recebidos.all.count }}</p>
+        <br/>
+        <a href="{% url 'convidar_perfil' perfil.id %}">Convidar</a>
     </main>
     <footer>
         <a href="{% url 'index' %}"><b>Voltar</b></a>
