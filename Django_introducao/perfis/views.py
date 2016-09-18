@@ -6,7 +6,8 @@ from perfis.models import Perfil
 def index(request):
     """Delcaração de função de view"""
     context = {
-        'perfis': Perfil.objects.all()
+        'perfis': Perfil.objects.all(),
+        'perfil_logado': get_perfil_logado(request)
     }
 
     return render(request, 'index.html', context=context)
@@ -27,11 +28,11 @@ def exibir_perfis(request):
     return render(request=request, template_name='lista_perfis.html', context=context)
 
 def convidar_perfil(request, perfil_id):
-    perfil_convidado = Perfil.objects.get(id=perfil_id)
+    perfil_a_convidar = Perfil.objects.get(id=perfil_id)
     perfil_logado = get_perfil_logado(request)
-    perfil_logado.convidar(perfil_convidado)
+    perfil_logado.convidar(perfil_a_convidar)
     return index(request=request)
 
 def get_perfil_logado(request):
     #TODO alterar para pegar o perfil de fato logado e não default 1
-    return Perfil.objects.get(id=1)
+    return Perfil.objects.get(id=5)

@@ -1,24 +1,50 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>ConnectedIn</title>
-</head>
-<body>
-    <h1>Bem-vindo ao ConnectedIn</h1>
-    <ul>
-        {% for each_perfil in perfis %}
-            <li><!--Chamando de forma dinamica a url configurada na urls.py -->
-                <a href="{% url 'perfis' each_perfil.id %}">
-                    <em>Nome: </em>{{ each_perfil.nome|upper }} / <em>E-mail: </em>{{ each_perfil.email }}
-                </a>
-            </li>
-            {% empty %}
-            <p>Nenhum perfil encontrado!</p>
-        {% endfor %}
-        <li><a href="{% url 'lista_todos_perfis' %}">
-            <b>Todos os Perfis</b>
-        </a></li>
-    </ul>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block body %}
+<div class="col-lg-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong>Todos os perfis</strong>
+        </div>
+                <ul>
+                    {% for each_perfil in perfis %}
+                        <li><!--Chamando de forma dinamica a url configurada na urls.py -->
+                            <a href="{% url 'perfis' each_perfil.id %}">
+                                <em>Nome: </em>{{ each_perfil.nome|upper }} / <em>E-mail: </em>{{ each_perfil.email }}
+                                </a>
+                        </li>
+                    {% empty %}
+                    <p>Nenhum perfil encontrado!</p>
+                    {% endfor %}
+                    <li><a href="{% url 'lista_todos_perfis' %}">
+                         <b>Todos os Perfis</b>
+                    </a></li>
+                </ul>
+        </div>
+        <div class="panel panel-default">
+            {% with total_de_convites=perfil_logado.convites_recebidos.count %}
+                {%  if total_de_convites %}
+                    <div class="panel-heading">
+                        <strong>{{ perfil_logado.nome }}, você tem {{ total_de_convites }}
+                            convite{{ total_de_convites|pluralize }} aguardando aprovação</strong>
+                    </div>
+                    <ul class="list-group">
+                        {% for each_convite in perfil_logado.convites_recebidos.all %}
+                            <li class="list-group-item">{{ each_convite.solicitante.nome }}
+                                <a href="#" class="pull-right">aceitar</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <div class="panel-body">
+                        <p>Nenhum convite recebido :(</p>
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </div>
+</div>
+
+
+</div>
+
+{% endblock %}
+

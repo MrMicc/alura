@@ -13,6 +13,7 @@ class Perfil(models.Model):
     nome_empresa = models.CharField(max_length=155, null=False)
 
     def convidar(self, perfil_convidado):
+        '''Viabiliza um Perfil logado na seção a realizar um convite um Perfil não logado'''
         convite = Convite(solicitante=self, convidado=perfil_convidado)
         convite.save()
 
@@ -20,5 +21,6 @@ class Perfil(models.Model):
 class Convite(models.Model):
     solicitante = models.ForeignKey(Perfil, related_name='convites_feitos')
     convidado = models.ForeignKey(Perfil, related_name='convites_recebidos')
+    #Para buscar os convidados via Query == Convite.objects.filter(convidado__id = 1)
 
 
