@@ -27,4 +27,5 @@ urlpatterns = [
     url(r'^perfis/(?P<perfil_id>\d+)$',views.exibir_perfil, name='perfis'), #url de um perfil especifico
     url(r'^perfis$',views.exibir_perfis, name='lista_todos_perfis'),
     url(r'^perfis/(?P<perfil_id>\d+)/convidar$', views.convidar_perfil, name='convidar_perfil'),
+    url(r'ˆconvite/(?P<id_convite>\d+)/aceitar$', views.aceitar, name='aceitar_convite'),
 ]

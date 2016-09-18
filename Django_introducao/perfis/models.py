@@ -11,6 +11,7 @@ class Perfil(models.Model):
     email = models.EmailField(max_length=255, null=False)
     telefone = models.CharField(max_length=15, null=False)
     nome_empresa = models.CharField(max_length=155, null=False)
+    contatos = models.ManyToManyField('self')
 
     def convidar(self, perfil_convidado):
         '''Viabiliza um Perfil logado na seção a realizar um convite um Perfil não logado'''
@@ -22,5 +23,12 @@ class Convite(models.Model):
     solicitante = models.ForeignKey(Perfil, related_name='convites_feitos')
     convidado = models.ForeignKey(Perfil, related_name='convites_recebidos')
     #Para buscar os convidados via Query == Convite.objects.filter(convidado__id = 1)
+
+    def aceitar(self):
+        self.convidado.contatos.add(self.solicitante) #addicionando no objeto do perfil convidado o contato do solicitante
+        self.solicitante.contatos.add(self.convidado) #add no objeto do solicitante o contato do convidado no perfil do solicitante
+        self.delete() #apagando o convite
+
+
 
 
