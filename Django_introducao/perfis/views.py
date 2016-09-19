@@ -10,7 +10,7 @@ def index(request):
         'perfil_logado': get_perfil_logado(request)
     }
 
-    return render(request, 'index.html', context=context)
+    return render(request, 'perfil/index.html', context=context)
 
 
 def exibir_perfil(request, perfil_id):
@@ -24,12 +24,12 @@ def exibir_perfil(request, perfil_id):
         'perfil':perfil,
         'ja_eh_contato':ja_eh_contato
     }
-    return render(request=request, template_name='perfil.html', context=context)
+    return render(request=request, template_name='perfil/perfil.html', context=context)
 
 
 def exibir_perfis(request):
     context = {'perfis': Perfil.objects.all()}
-    return render(request=request, template_name='lista_perfis.html', context=context)
+    return render(request=request, template_name='perfil/lista_perfis.html', context=context)
 
 def convidar_perfil(request, perfil_id):
     perfil_a_convidar = Perfil.objects.get(id=perfil_id)

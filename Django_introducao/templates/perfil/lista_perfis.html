@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'perfil/base.html' %}
 {% block body %}
 <body>
     <h1>Perfis</h1>
@@ -6,10 +6,9 @@
            {% for each_perfil in perfis %}
                <div class="panel panel-default">
                     <div class="panel-heading">
-                        {{ each_perfil.nome }}
+                       <p>nome: {{ each_perfil.nome }}</p>
                     </div>
                     <ul>
-                        <li>nome: </li>
                         <li>email: {{ each_perfil.email }}</li>
                         <li>telefone: {{ each_perfil.telefone }}</li>
                         <li>empresa: {{ each_perfil.nome_empresa }}</li>
