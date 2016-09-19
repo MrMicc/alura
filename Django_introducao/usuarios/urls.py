@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from usuarios.views import Registrar_usuario_view
+from django.contrib.auth.views import login, logout
 
 
 
@@ -25,5 +26,6 @@ from usuarios.views import Registrar_usuario_view
 #grupos -> (?P<variavel>EXPREGULAR)
 urlpatterns = [
     url(r'^registrar/$', Registrar_usuario_view.as_view(), name='registrar'),
-
+    url(r'^login/$', login, {'template_name': 'login/login.html'}, name='login'),
+    url(r'^logout/$', logout, {'template_name': 'login/login.html'}, name='logout'),
 ]
