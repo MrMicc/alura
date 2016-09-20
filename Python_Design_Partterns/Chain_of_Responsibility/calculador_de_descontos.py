@@ -1,13 +1,14 @@
 # -*- coding: UTF-8 -*-
+from Python_Design_Partterns.Chain_of_Responsibility.descontos import Desconto_por_cinco_itens, Desconto_por_mais_de_quinhentos_reais, Desconto_zerado
 
 class Calculador_de_descontos(object):
     def calcula(self, orcamento):
-        if orcamento.total_itens > 5:
-            print(orcamento.valor*0.1)
+        desconto = Desconto_por_cinco_itens(Desconto_por_mais_de_quinhentos_reais(
+            Desconto_zerado()
+            )
+        ).calcula(orcamento)
 
-        elif orcamento.valor > 500:
-            return orcamento.valor*0.07
-
+        return desconto
 
 
 if __name__ == '__main__':
