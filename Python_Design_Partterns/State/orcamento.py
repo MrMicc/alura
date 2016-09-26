@@ -83,20 +83,25 @@ class Orcamento(object):
 
     def __init__(self):
         self.__itens = []
-        self.estado_atual = Em_aprovacao()
+        self.__estado_atual = Em_aprovacao()
         self.__desconto_extra = 0
+        self.__desonto_aplicad = False
 
     def aplica_desconto(self):
-        self.estado_atual.aplica_desconto_extra(self)
+        if(self.__desonto_aplicad is False):
+            self.__estado_atual.aplica_desconto_extra(self)
+            self.__desonto_aplicad = True
+        else:
+            raise Exception('Desconto já aplicado')
 
     def aprova(self):
-        self.estado_atual.aprova(self)
+        self.__estado_atual.aprova(self)
 
     def reprova(self):
-        self.estado_atual.reprova(self)
+        self.__estado_atual.reprova(self)
 
     def finaliza(self):
-        self.estado_atual.finaliza(self)
+        self.__estado_atual.finaliza(self)
 
     def adiciona_desconto_extra(self, desconto):
         self.__desconto_extra = desconto
@@ -146,5 +151,6 @@ if __name__ == '__main__':
     print(orcamento.valor)
     orcamento.aprova()
     orcamento.aplica_desconto()
+    #orcamento.aplica_desconto()
     print(orcamento.valor)
 

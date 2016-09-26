@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from Python_Design_Partterns.Chain_of_Responsibility.descontos import Desconto_por_cinco_itens, Desconto_por_mais_de_quinhentos_reais, Desconto_zerado
+from Python_Design_Partterns.State.descontos import Desconto_por_cinco_itens, Desconto_por_mais_de_quinhentos_reais, Desconto_zerado
 
 class Calculador_de_descontos(object):
     def calcula(self, orcamento):
@@ -12,7 +12,7 @@ class Calculador_de_descontos(object):
 
 
 if __name__ == '__main__':
-    from Python_Design_Partterns.Chain_of_Responsibility.orcamento import Orcamento, Item
+    from Python_Design_Partterns.State.orcamento import Orcamento, Item
     orcamento = Orcamento()
     orcamento.adiciona_item(Item('ITEM-1',100))
     orcamento.adiciona_item(Item('ITEM-2', 50))
