@@ -12,3 +12,5 @@ class ConnectionFactory(object):
         )
 
         return connection
+
+    robot = Robot()
