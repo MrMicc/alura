@@ -22,10 +22,10 @@ module.exports = function (app) {
                 //retornando dois tipo de retornos possiveis JSON e HTML
                 res.format({
                     html : function(){
-                       res.render('./produtos/lista',{lista:result});
+                       res.render('./produtos/lista',{lista:result}); //redenderizando a pagina de forma html
                    },
                     json : function () {
-                        res.json(result);
+                        res.json(result); //retornando valores via JSON
                     }
                 })
             }
@@ -34,12 +34,24 @@ module.exports = function (app) {
     });
 
     app.get('/produtos/form',function (req,res) {
-        res.render('./produtos/form');
+        res.render('./produtos/form', {errosValidacao :{}});
     });
-    
-    
+
+    /**
+     * realizando o insert na base de livros
+     */
     app.post('/produtos', function (req,res) {
         var produto = req.body; //pegando as tags do form e transformando em JSON
+
+        //utilizando o express-validator
+        req.assert('titulo', 'Titulo é obrigatorio').notEmpty();
+        req.assert('preco', 'preco não pode ser vazio').isFloat();
+        var erros = req.validationErrors();
+        if(erros){
+            res.render('./produtos/form', {errosValidacao : erros });
+            return;
+        }
+        //fim express-validator
 
         var connection = app.db.ConnectionFactory();
         var produtosBanco = new app.db.ProdutosDAO(connection);
@@ -49,7 +61,8 @@ module.exports = function (app) {
             }else{
                 res.redirect('/produtos'); //redirecionando para o pagina que lista
             }
-        })
+        });
+        connection.end();
 
     });
 
@@ -57,6 +70,7 @@ module.exports = function (app) {
      app.get('/produtos/delete', function (req, res) {
          res.render('./produtos/delete');
      });
+
 
     app.post('/produtos/delete',function (req, res) {
         var produtoDelete = req.body;
@@ -70,6 +84,7 @@ module.exports = function (app) {
                 res.redirect('/produtos');
             }
         })
+        produtosBanco.end();
 
     })
 };
