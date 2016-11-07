@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario</title>
+</head>
+<body>
+    <form action="/produtos" method="post">
+        <div>
+            <label for="titulo">Titulo</label>
+            <input type="text" id="titulo" name="titulo" placeholder="coloque o titulo"/>
+        </div>
+        <div>
+            <label for="preco">Preço</label>
+            <input type="text" id="preco" name="preco" placeholder="xx,xx"/>
+        </div>
+        <div>
+            <label for="decricao">Descrição</label>
+            <textarea rows="10" cols="30" id="descricao" name="descricao" placeholder="informe a descriçao"> </textarea>
+        </div>
+
+        <input type="submit" value="gravar">
+    </form>
+</body>
+</html>

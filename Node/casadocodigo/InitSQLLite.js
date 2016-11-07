@@ -10,7 +10,7 @@ db.serialize(function() {
         " titulo TEXT, " +
         "descricao TEXT, " +
         "preco NUM)");
-    var stmt = db.prepare("INSERT INTO livros VALUES ('2','comecando com JAVSCRIPT', 'livro sobre JS', 40.00)");
+    var stmt = db.prepare("INSERT INTO livros VALUES ('3','comecando com Algo', 'livro sobre alguma coisa', 99.00)");
     stmt.run();
     stmt.finalize();
 
