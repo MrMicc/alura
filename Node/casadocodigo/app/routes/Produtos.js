@@ -34,7 +34,7 @@ module.exports = function (app) {
     });
 
     app.get('/produtos/form',function (req,res) {
-        res.render('./produtos/form', {errosValidacao :{}});
+        res.render('./produtos/form', {errosValidacao :{}, produto : {}});
     });
 
     /**
@@ -47,8 +47,20 @@ module.exports = function (app) {
         req.assert('titulo', 'Titulo é obrigatorio').notEmpty();
         req.assert('preco', 'preco não pode ser vazio').isFloat();
         var erros = req.validationErrors();
+
+        //Caso tenha algum pau
         if(erros){
-            res.render('./produtos/form', {errosValidacao : erros });
+            res.format({
+                html : function () {
+                    //retonar erro 400 e retornando os dados previamente preenchidos na tela
+                    res.status(400).render('./produtos/form', {errosValidacao : erros, produto : produto });
+
+                },
+                json : function () {
+                    //retornando erro 400 e o erro para o JSON
+                    res.status(400).json(erros);
+                }
+            });
             return;
         }
         //fim express-validator

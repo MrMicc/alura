@@ -30,7 +30,7 @@ var request = http.request(config, function (res) { //fazendo uma requisição n
 
 //Criando o JSON do produto a ser inserido
 var inserirProduto = {
-    titulo : 'Inserindo via JSON',
+    titulo : '',
     descricao : 'Livro inserido via JSON',
     preco : 99.9
 };
