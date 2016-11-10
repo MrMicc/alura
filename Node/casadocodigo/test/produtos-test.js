@@ -9,8 +9,11 @@
 /**
  * Case de test de produtos
  */
-var http = require('http');
-var assert = require('assert'); //modulo de verificacao de teste
+
+var express = require('../config/configExpress')();
+var request = require('supertest')(express);
+
+//var assert = require('assert'); //modulo de verificacao de teste
 
 
 describe('ProdutosController', function () {
@@ -19,27 +22,10 @@ describe('ProdutosController', function () {
      * Caso de teste reponsavel em verificar se o servidor está aceitando e retornando os produtos via JSON
      */
     it('#listagem json', function (done) { //necessario passar para que o MOCHA saiba que a funcao assincrona tenha acabado de fato
-       //gerando json responsavel pela listagem de produtos no servidor
-        var config = {
-            hostname : 'localhost',
-            port : 3000,
-            path : '/produtos',
-            headers : {
-                'Accept' : 'application/json'
-            }
-        };
-
-        //fazendo o get do JSON
-        http.get(config,function (res) {
-
-
-            //verificando se o status code é igual a 200 (sucesso)
-            assert.equal(res.statusCode,200);
-            assert.equal(res.headers['content-type'],'application/json; charset=utf-8');
-
-
-            done();
-        });
+        request.get('/produtos')
+            .set('Accept', 'application/json') // informando que no header da requisiçao tem que ser do tipo JSON
+            .expect('Content-Type', /json/)   //falando que a resposta esperada no contet-type tem que ter a palavara json
+            .expect(200, done); //informando que espera um statusCode 200 e que pode finalizar o teste
         
     });
 

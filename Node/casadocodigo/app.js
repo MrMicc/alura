@@ -5,7 +5,7 @@
 var app = require('./config/configExpress')();
 
 //chamando rotas, passando a configuração do express
-require('./app/routes/Produtos')(app);
+//require('./app/routes/Produtos')(app);
 
 
 app.listen(3000, function () {
