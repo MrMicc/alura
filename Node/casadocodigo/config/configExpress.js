@@ -23,7 +23,7 @@ module.exports = function (){
     app.use(bodyParser.json()); //middleware responsavel em parsear o JSON
     app.use(expressValidator()); //middleware responsavel pela validação
 
-    load('routes',{cwd : 'app'})
+    load('routes',{cwd : 'app', verbose:true})
         .then('db')
         .into(app);
 
