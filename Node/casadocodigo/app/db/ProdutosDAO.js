@@ -16,6 +16,11 @@ function ProdutosDAO(connection) {
         connection.query('DELETE FROM LIVROS WHERE ID = ?',produto.id, callback);
     };
 
+
+    this.getProduto = function (idProduto, callback) {
+        connection.query('SELECT * FROM livros WHERE ID = ?', idProduto, callback);
+    };
+
     return this;
 
 
