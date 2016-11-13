@@ -13,8 +13,9 @@ app.set('io',io); //setando a variael do Socket IO no express
 require('./app/routes/Produtos')(app);
 
 
-http.listen(3000, function () {
-    console.log('Servidor rodando!!');
+var server = http.listen(3000, function () {
+    var port = server.address().port;
+    console.log('App está rodando na porta: %s', port);
 });
 
 
