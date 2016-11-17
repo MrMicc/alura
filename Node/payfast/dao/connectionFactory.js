@@ -8,7 +8,7 @@ function createDBConnection() {
     return mysql.createConnection({
         host : 'localhost',
         user: 'root',
-        password: '',
+        password: 'root',
         database: 'payfast'
     });
 
@@ -16,4 +16,4 @@ function createDBConnection() {
 
 module.exports = function () {
     return createDBConnection;
-}
+};
