@@ -19,8 +19,21 @@ module.exports = function (app) { //falando que esse modulo export essa funçao 
         var pagamento = req.body;
         console.log('Recebuda a requisição de post');
         console.log('Corpo Pagamengo:');
+
+        pagamento.status = 'CRIADO';
+        pagamento.data = new Date();
+
         console.log(pagamento);
 
-        res.send('OK.');
+        //salvando pagamento
+        var connection = app.dao.connectionFactory();
+        var pagamentoDAO = new app.dao.pagamentoDAO(connection);
+
+        pagamentoDAO.salva(pagamento,  function (err, result){
+            console.log(err);
+            console.log('Pagamento criado');
+            res.json(pagamento);
+        });
+
     });
 };
