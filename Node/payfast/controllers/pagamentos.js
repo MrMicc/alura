@@ -16,6 +16,21 @@ module.exports = function (app) { //falando que esse modulo export essa funçao 
 }'; echo
 */
     app.post('/pagamentos/pagamento', function (req,res, next) {
+
+        req.assert("forma_de_pagamento","Forma de pagamento é obrigatorio").notEmpty();
+        req.assert("preco", "não pode ser vazio e deve ser decimal").notEmpty().isFloat();
+        req.assert("moeda", "Não pode ser vazio e deve ter no maximo 3 caracteres").notEmpty().len(3,3);
+
+        var errosValidacao = req.validationErrors();
+        if(errosValidacao){
+            console.log("Erros de validacao:");
+            console.log(errosValidacao);
+
+            res.status(400).json(errosValidacao);
+            return next();
+        }
+
+
         var pagamento = req.body;
         console.log('Recebuda a requisição de post');
         console.log('Corpo Pagamengo:');
