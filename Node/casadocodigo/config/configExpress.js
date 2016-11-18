@@ -1,13 +1,50 @@
 /**
  * Created by ter00409 on 03/11/2016.
  */
+/*
+FUNCIONAMENTO DO REQUIRE:
+    O require sem barra ou ponto, ele vai para pasta de modulos do node e ai sim, carrega as bibliotecas
+    caso tenham algum ponto ou barra, será percorrido o path do projeto apartir do path onde se encontra o modulo
+ */
+
 var express = require('express');
-var app = express();
+var load = require('express-load');
+var bodyParser = require('body-parser');
+var expressValidator = require('express-validator');
 
 //Exportando o modulo responsavel em configurar o express
-module.exports = function () {
+module.exports = function (){
+    var app = express();
+
+    app.use(express.static('./app/public'));
     app.set('view engine', 'ejs');
     app.set('views','./app/views');
+
+    app.use(bodyParser.urlencoded({extended:true})); //middleware responsavel no html response
+    app.use(bodyParser.json()); //middleware responsavel em parsear o JSON
+    app.use(expressValidator()); //middleware responsavel pela validação
+
+    load('routes',{cwd : 'app', verbose:true})
+        .then('db')
+        .into(app);
+
+    /**
+     * Middle responsavel em direcionar a pagina 404
+     * importante a ordem dos midleware sao importantes por isso esse cara abaixo, para esse cenario
+     * deve ficar apos o carregamento das roatas
+     */
+    app.use(function (req,res,next) {
+        res.status(404).render('./erros/404');
+        next();
+    });
+
+    /**
+     * Midle responsavel pelo tratamento de erro
+     */
+    app.use(function (error,req,res,next) {
+        res.status(500).render('./erros/500',{error:error});
+        next();
+    });
 
     return app;
 };

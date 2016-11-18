@@ -9,10 +9,20 @@
         <tr>
             <td>id</td>
             <td>nome</td>
+            <td>titulo</td>
+            <td>descrição</td>
+            <td>preço</td>
         </tr>
         <tr>
-            <td>01</td>
-            <td>Node.js</td>
+            <%for(i=0;i<lista.length;i++){%>
+            <tr>
+                <td><%=lista[i].id%></td>
+                <td><%=lista[i].nome%></td>
+                <td><%=lista[i].titulo%></td>
+                <td><%=lista[i].descricao%></td>
+                <td><%=lista[i].preco%></td>
+            <%}%>
+            </tr>
         </tr>
 
     </table>
