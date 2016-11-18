@@ -46,6 +46,11 @@ describe('#ProdutosController', function () {
             .end(done);//informando que espera um statusCode 200 e que pode finalizar o teste
     });
 
+    it('#cadastro de produtos com titulo vazio', function (done) {
+        request.post('/produtos')
+            .send({titulo : '', descricao: 'Novo livro', preco: '44'})
+            .expect(400,done);
+    });
 
     it('#cadastro de produtos com titulo vazio', function (done) {
         request.post('/produtos')
@@ -63,6 +68,11 @@ describe('#ProdutosController', function () {
         request.post('/produtos')
             .send({titulo : 'Titulo', descricao: 'Novo livro', preco: 'asd'})
             .expect(400,done);
+    });
+    it('#cadastro de produtos sucesso sem descricao', function (done) {
+        request.post('/produtos')
+            .send({titulo : 'Titulo Teste Sem Descr', descricao: '', preco: '40'})
+            .expect(302,done); //status 302 pois é feito um redirect no sucesso
     });
 
     it('#cadastro de produtos sucesso', function (done) {

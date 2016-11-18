@@ -8,7 +8,7 @@ var connectMYSQL  = function() {
    return mysql.createConnection({
         host : 'localhost',
         user: 'root',
-        password: 'root',
+        password: '',
         database: 'casadocodigo'
     });
     if(!process.env.NODE_ENV){
