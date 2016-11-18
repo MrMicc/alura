@@ -7,16 +7,16 @@
 
 //exportando rota que lista produtos
 module.exports = function (app) {
-    app.get('/produtos',function (req,res) {
-        console.log('Listando os produtos');
-
-        console.log('Carregando a conection da fábrica');
+    /**
+     * GET responsavel em mostrar a lista de produtos
+     */
+    app.get('/produtos',function (req,res, next) {
         var connection = app.db.ConnectionFactory();
         var produtosBanco = new app.db.ProdutosDAO(connection);
 
         produtosBanco.lista(function(err, result){
             if(err != null){
-                console.log(err);
+                return next(err);
             }else{
                 console.log('Retornou livros ' +result.length);
                 //retornando dois tipo de retornos possiveis JSON e HTML
@@ -95,7 +95,7 @@ module.exports = function (app) {
             }else{
                 res.redirect('/produtos');
             }
-        })
+        });
         produtosBanco.end();
 
     })

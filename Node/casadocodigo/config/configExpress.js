@@ -16,6 +16,7 @@ var expressValidator = require('express-validator');
 module.exports = function (){
     var app = express();
 
+    app.use(express.static('./app/public'));
     app.set('view engine', 'ejs');
     app.set('views','./app/views');
 
@@ -23,9 +24,27 @@ module.exports = function (){
     app.use(bodyParser.json()); //middleware responsavel em parsear o JSON
     app.use(expressValidator()); //middleware responsavel pela validação
 
-    load('routes',{cwd : 'app'})
+    load('routes',{cwd : 'app', verbose:true})
         .then('db')
         .into(app);
+
+    /**
+     * Middle responsavel em direcionar a pagina 404
+     * importante a ordem dos midleware sao importantes por isso esse cara abaixo, para esse cenario
+     * deve ficar apos o carregamento das roatas
+     */
+    app.use(function (req,res,next) {
+        res.status(404).render('./erros/404');
+        next();
+    });
+
+    /**
+     * Midle responsavel pelo tratamento de erro
+     */
+    app.use(function (error,req,res,next) {
+        res.status(500).render('./erros/500',{error:error});
+        next();
+    });
 
     return app;
 };
