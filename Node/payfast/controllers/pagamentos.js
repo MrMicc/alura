@@ -9,7 +9,7 @@ module.exports = function (app) { //falando que esse modulo export essa funçao 
     });
 
     app.delete('/pagamentos/pagamento/id=:id', function (req, res) {
-        atualizaStatus(req,res, { desc : 'CANCLEADO', code: '204'} );
+        atualizaStatus(req,res, { desc : 'CANCELADO', code: '204'} );
     });
 
     app.put('/pagamentos/pagamento/id=:id/', function (req, res) {
@@ -17,6 +17,12 @@ module.exports = function (app) { //falando que esse modulo export essa funçao 
 
     });
 
+    /**
+     * Metodo responsavel em realizar a autualizacao do status de forma generica passando os seguintes parametros
+     * @param req - requisicao
+     * @param res - response
+     * @param status - status code de retorno no response
+     */
     function atualizaStatus(req, res, status){
         var pagamento = {};
         pagamento.id = req.params.id;
@@ -32,6 +38,7 @@ module.exports = function (app) { //falando que esse modulo export essa funçao 
             }
         });
 
+        console.log(req.socket.server);
         res.status(status.code).send(pagamento);
 
     }
@@ -76,9 +83,28 @@ module.exports = function (app) { //falando que esse modulo export essa funçao 
                 res.status(500).json({error: 'Não foi possivel salvar no banco', eror_desc: err });
                 return next(err);
             }
+
+            pagamento.id = result.insertId;
             console.log('Pagamento criado');
-            res.location('/pagamentos/pagamento/id='+result.insertId); //insertId é um parametro do connector do mysql
-            res.status(201).json(pagamento); //status 201 indica que algo foi criado
+            res.location('/pagamentos/pagamento/id='+pagamento.id); //insertId é um parametro do connector do mysql
+
+            var response = {
+                dados_do_pagamento: pagamento,
+                links: [
+                    {
+                        href: '/pagamentos/pagamento/id='+pagamento.id,
+                        rel: 'CONFIRMAR',
+                        method: 'PUT'
+                    },
+                    {
+                        href: '/pagamentos/pagamento/id='+pagamento.id,
+                        rel: 'CANCELAR',
+                        method: 'DELETE'
+                    }
+                ]
+            };
+
+            res.status(201).json(response); //status 201 indica que algo foi criado
         });
 
     });

@@ -1,6 +1,4 @@
-{
-  "forma_de_pagamento":"payfast",
+{"forma_de_pagamento":"payfast",
   "preco":98.98,
   "moeda":"USD",
-  "descricao":"criando um pagamento em USD"
-}
+  "descricao":"criando um pagamento em USD"}
