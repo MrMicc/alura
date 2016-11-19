@@ -8,14 +8,21 @@ module.exports = function (app) { //falando que esse modulo export essa funçao 
         res.send('ok');
     });
 
+    app.delete('/pagamentos/pagamento/id=:id', function (req, res) {
+        atualizaStatus(req,res, { desc : 'CANCLEADO', code: '204'} );
+    });
 
-    app.put('/pagamentos/pagamento/id=:id/:status', function (req, res, next) {
-       var pagamento = {};
+    app.put('/pagamentos/pagamento/id=:id/', function (req, res) {
+       atualizaStatus(req,res, { desc: 'CONFIRMADO', code : '200'});
+
+    });
+
+    function atualizaStatus(req, res, status){
+        var pagamento = {};
         pagamento.id = req.params.id;
-        pagamento.status = req.params.status;
+        pagamento.status = status.desc;
 
-
-        console.log('Pagamento que será alterado: '+pagamento);
+        console.log('Pagamento que será alterado: '+pagamento.id+ 'para status: '+pagamento.status);
         var connection = app.dao.connectionFactory();
         var pagamentoDAO = new app.dao.pagamentoDAO(connection);
 
@@ -23,11 +30,11 @@ module.exports = function (app) { //falando que esse modulo export essa funçao 
             if(erro){
                 res.status(500).json({ 'pagamento': pgamento, 'Error': erro} )
             }
-        })
+        });
 
-        res.send(pagamento);
+        res.status(status.code).send(pagamento);
 
-    });
+    }
     /*curl http://localhost:3000/pagamentos/pagamento -X POST -v -H "Content-type: application/json" -d '
     "forma_de_pagamento":"payfast",
         "valor":10.98,
