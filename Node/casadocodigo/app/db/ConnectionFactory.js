@@ -5,12 +5,6 @@ var mysql = require('mysql');
 
 var connectMYSQL  = function() {
     console.log('Retornando conexão da Fábrica');
-   return mysql.createConnection({
-        host : 'localhost',
-        user: 'root',
-        password: '',
-        database: 'casadocodigo'
-    });
     if(!process.env.NODE_ENV){
        return mysql.createConnection({
             host : 'localhost',
