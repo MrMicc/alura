@@ -18,6 +18,7 @@ module.exports = function () {
     consign() //inserindo a pasta controllers no express
         .include('controllers')
         .then('dao')
+        .then('services')
         .into(app);
 
 

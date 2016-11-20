@@ -38,7 +38,6 @@ module.exports = function (app) { //falando que esse modulo export essa funçao 
             }
         });
 
-        console.log(req.socket.server);
         res.status(status.code).send(pagamento);
 
     }
@@ -51,9 +50,9 @@ module.exports = function (app) { //falando que esse modulo export essa funçao 
 */
     app.post('/pagamentos/pagamento', function (req,res, next) {
 
-        req.assert("forma_de_pagamento","Forma de pagamento é obrigatorio").notEmpty();
-        req.assert("preco", "não pode ser vazio e deve ser decimal").notEmpty().isFloat();
-        req.assert("moeda", "Não pode ser vazio e deve ter no maximo 3 caracteres").notEmpty().len(3,3);
+        req.assert("pagamento.forma_de_pagamento","Forma de pagamento é obrigatorio").notEmpty();
+        req.assert("pagamento.preco", "não pode ser vazio e deve ser decimal").notEmpty().isFloat();
+        req.assert("pagamento.moeda", "Não pode ser vazio e deve ter no maximo 3 caracteres").notEmpty().len(3,3);
 
         var errosValidacao = req.validationErrors();
         if(errosValidacao){
@@ -65,7 +64,7 @@ module.exports = function (app) { //falando que esse modulo export essa funçao 
         }
 
 
-        var pagamento = req.body;
+        var pagamento = req.body['pagamento'];
         console.log('Recebuda a requisição de post');
         console.log('Corpo Pagamengo:');
 
@@ -85,11 +84,13 @@ module.exports = function (app) { //falando que esse modulo export essa funçao 
             }
 
             pagamento.id = result.insertId;
+            req.params.id = pagamento.id;
             console.log('Pagamento criado');
             res.location('/pagamentos/pagamento/id='+pagamento.id); //insertId é um parametro do connector do mysql
 
             var response = {
                 dados_do_pagamento: pagamento,
+
                 links: [
                     {
                         href: '/pagamentos/pagamento/id='+pagamento.id,
@@ -103,8 +104,24 @@ module.exports = function (app) { //falando que esse modulo export essa funçao 
                     }
                 ]
             };
+            if(pagamento.forma_de_pagamento == 'cartao'){
+                var cartao = req.body['cartao'];
+                var clientCartao = new app.services.clientCartao();
+                clientCartao.autoriza(cartao, function (clientErro, request,resp, result) {
+                    if(clientErro){
+                        console.log(clientErro);
+                        atualizaStatus(req,res,{desc: 'NAO AUTORIZADO', code: '400'});
+                        //res.status(400).json(clientErro);
+                        return;
+                    }
+                    response.cartao = result;
+                    console.log(response);
+                    atualizaStatus(req,res,{desc: 'AUTORIZADO', code: '201'});
+                    //res.status(201).json(response); //status 201 indica que algo foi criado
+                });
 
-            res.status(201).json(response); //status 201 indica que algo foi criado
+            }
+
         });
 
     });

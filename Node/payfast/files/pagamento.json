@@ -1,4 +1,17 @@
-{"forma_de_pagamento":"payfast",
-  "preco":98.98,
-  "moeda":"USD",
-  "descricao":"criando um pagamento em USD"}
+{
+  "pagamento": {
+    "forma_de_pagamento":"cartao",
+    "preco":98.98,
+    "moeda":"USD",
+    "descricao":"criando um pagamento em USD"
+  },
+
+  "cartao": {
+    "numero":12341234123412342133,
+    "bandeira":"visa",
+    "ano_de_expiracao":2016,
+    "mes_de_expiracao":12,
+    "cvv":123
+  }
+
+}
