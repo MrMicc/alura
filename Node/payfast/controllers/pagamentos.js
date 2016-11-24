@@ -1,18 +1,23 @@
 /**
  * Created by luizmiccieli on 14/11/16.
  */
+var logger =  require('../services/logger.js');
+
 
 module.exports = function (app) { //falando que esse modulo export essa funçao passando o app
     app.get('/pagamentos', function (req, res) {
         console.log('recebida a requisicao de teste ');
         res.send('ok');
+        logger.error('TESTE', {teste: 123, testando: 'nao sei o que'});
     });
 
     app.delete('/pagamentos/pagamento/id=:id', function (req, res) {
+        logger.info('Pagamentos - Delete', {method : 'app.delete', path: '/pagamentos/pagamentos/'+req.params.id});
         atualizaStatus(req,res, { desc : 'CANCELADO', code: '204'} );
     });
 
     app.put('/pagamentos/pagamento/id=:id/', function (req, res) {
+        logger.info('Pagamentos - PUT', {method : 'app.put', path: '/pagamentos/pagamentos/'+req.params.id});
        atualizaStatus(req,res, { desc: 'CONFIRMADO', code : '200'});
 
     });
