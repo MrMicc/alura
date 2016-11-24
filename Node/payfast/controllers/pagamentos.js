@@ -39,7 +39,7 @@ module.exports = function (app) { //falando que esse modulo export essa funçao 
 
         pagamentoDAO.atualiza(pagamento, function (erro) {
             if(erro){
-                res.status(500).json({ 'pagamento': pgamento, 'Error': erro} )
+                res.status(500).json({ 'pagamento': pagamento, 'Error': erro} )
             }
         });
 
@@ -53,6 +53,27 @@ module.exports = function (app) { //falando que esse modulo export essa funçao 
         "descricao":"criando um pagamento"
 }'; echo
 */
+
+
+    app.get('/pagamentos/pagamento/id=:id', function (req,res,next) {
+        console.log('consultando pagamento');
+        var pagamento = {};
+        pagamento.id = req.params.id;
+        console.log('id = '+pagamento);
+        var connection = app.dao.connectionFactory();
+        var pagamentoDAO = new app.dao.pagamentoDAO(connection);
+        pagamentoDAO.getByID(pagamento, function (error, result) {
+           if(error){
+               console.log('ERROR na consulta Pagamento: '+error);
+               res.status(500).json({'pagamento_id': pagamento.id, 'ERROR':error});
+               return next(error);
+           }else{
+               console.log('Result da busca: '+JSON.stringify(result));
+               res.status(200).json(result);
+           }
+        });
+
+    });
     app.post('/pagamentos/pagamento', function (req,res, next) {
 
         req.assert("pagamento.forma_de_pagamento","Forma de pagamento é obrigatorio").notEmpty();
