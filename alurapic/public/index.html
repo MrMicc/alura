@@ -12,10 +12,20 @@
     </head>
     <body ng-controller="FotosController">
         <div class="container">
+
             <div class="jumbotron">
                 <h1 class="text-center">Alurapic</h1>
             </div>
-            <img class="img-responsive center-block" src="{{fotos.url}}" alt="{{fotos.alt}}">
-        </div> <!-- fim container -->        
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{fotos.titulo}}</h3>
+                </div>
+                <div class="panel-body">
+                    <img class="img-responsive center-block" src="{{fotos.url}}" alt="{{fotos.titulo}}">
+                </div>
+            </div><!-- fim do panel das fotos -->
+
+        </div> <!-- fim container -->
     </body>
 </html>
