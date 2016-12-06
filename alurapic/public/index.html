@@ -8,10 +8,10 @@
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/efeitos.css">
         <script src="./js/lib/angular.min.js"></script>
+        <script src="./js/lib/angular-animate.min.js"></script>
         <script src="./js/main.js"></script>
         <script src="./js/controllers/fotos-controller.js"></script>
         <script src="./js/directives/minhas-diretivas.js"></script>
-        <script src="./js/lib/angular-animate.min.js"></script>
     </head>
     <body ng-controller="FotosController">
         <div class="container">
@@ -33,7 +33,7 @@
             <div class="row">
                 <!--Percorrendo o array de fotos atraves da diretiva ng-repeat
                 o painel é montado atraves da diretiva meu-painel que encapsula o html responsavel por isso-->
-                <meu-painel  ng-repeat="foto in fotos | filter: filtro" titulo="{{foto.titulo}}">
+                <meu-painel class="painel-animado col-md-2" ng-repeat="foto in fotos | filter: filtro" titulo="{{foto.titulo}}">
                     <img class="img-responsive center-block" src="{{foto.url}}" alt="{{foto.titulo}}">
                 </meu-painel><!-- fim do panel das fotos -->
             </div> <!-- fim do row -->
