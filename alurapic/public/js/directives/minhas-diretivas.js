@@ -17,4 +17,16 @@ angular.module('minhasDiretivas',[]).directive('meuPainel', function () {
 
    return ddo;
 
+}).directive('minhaFoto', function () {
+    var ddo = {};
+
+    ddo.restrict = 'AE';
+    ddo.scope = {
+       titulo : '@titulo',
+        url : '@url'
+    };
+
+    ddo.templateUrl = './js/directives/html/minhaFoto.html';
+
+    return ddo;
 });
