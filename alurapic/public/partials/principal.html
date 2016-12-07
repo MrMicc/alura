@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-md-12">
+        <form>
+            <input class="form-control" placeholder="filtrar pelo titulo da foto" ng-model="filtro"
+                   ng-model-options="{ debounce : 500 }">
+        </form>
+    </div> <!-- fim col-md-12 -->
+</div> <!-- fim row-->
+
+
+<div class="row">
+    <!--Percorrendo o array de fotos atraves da diretiva ng-repeat
+    o painel é montado atraves da diretiva meu-painel que encapsula o html responsavel por isso-->
+    <meu-painel class="painel-animado col-md-2" ng-repeat="foto in fotos | filter: filtro" titulo="{{foto.titulo}}">
+        <minha-foto url="{{foto.url}}" titulo="{{foto.titulo}}"></minha-foto>
+    </meu-painel><!-- fim do panel das fotos -->
+</div> <!-- fim do row -->

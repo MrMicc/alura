@@ -2,6 +2,7 @@
 <html lang="pt-br" ng-app="alurapic">
     <head>
         <meta charset="UTF-8" >
+        <base href="/">
         <meta name="viewport" content="width=device-width">
         <title>Alurapic</title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -12,31 +13,17 @@
         <script src="./js/main.js"></script>
         <script src="./js/controllers/fotos-controller.js"></script>
         <script src="./js/directives/minhas-diretivas.js"></script>
+        <script src="./js/lib/angular-route.min.js"></script>
     </head>
-    <body ng-controller="FotosController">
+    <body>
         <div class="container">
 
             <div class="jumbotron">
                 <h1 class="text-center">Alurapic</h1>
             </div>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <form>
-                        <input class="form-control" placeholder="filtrar pelo titulo da foto" ng-model="filtro"
-                               ng-model-options="{ debounce : 500 }">
-                    </form>
-                </div> <!-- fim col-md-12 -->
-            </div> <!-- fim row-->
+            <ng-view></ng-view>
 
-
-            <div class="row">
-                <!--Percorrendo o array de fotos atraves da diretiva ng-repeat
-                o painel é montado atraves da diretiva meu-painel que encapsula o html responsavel por isso-->
-                <meu-painel class="painel-animado col-md-2" ng-repeat="foto in fotos | filter: filtro" titulo="{{foto.titulo}}">
-                    <minha-foto url="{{foto.url}}" titulo="{{foto.titulo}}"></minha-foto>
-                </meu-painel><!-- fim do panel das fotos -->
-            </div> <!-- fim do row -->
         </div> <!-- fim container -->
     </body>
 </html>
